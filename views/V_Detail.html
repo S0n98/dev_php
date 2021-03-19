@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Home</title>
+    <link rel="stylesheet" href="../views/main.css?v=<?php echo time();?>">
+</head>
+<body>
+    <main>
+    <a class="button_back" href="/">Back</a>
+    <h1><?php echo $post->title ?></h1>
+    <hr>
+    <img class="img_detail" src=".<?php echo $post->image ?>">
+    <p class="description"><?php echo $post->description ?></p>
+    </main>
+</body>
+</html>

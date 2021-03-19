@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Home</title>
+    <link rel="stylesheet" href="./views/main.css?v=<?php echo time();?>">
+</head>
+<body>
+    <main>
+    <div class="container">
+        <h1>Manage</h1>
+        <a class="button" href="/views/V_Add.html">New</a>
+    </div>
+    <table>
+        <tr>
+            <td>ID</td>
+            <td>Thumb</td>
+            <td>Title</td>
+            <td>Status</td>
+            <td>Action</td>
+        </tr>
+        <?php 
+            for( $i = 0; $i < count($results->data); $i++ ) : ?>
+            <tr>
+                    <td><?php echo $results->data[$i]['id']; ?></td>
+                    <td><img class="img_home" src="<?php echo $results->data[$i]['image']; ?>"/></td>
+                    <td class="title"><?php echo $results->data[$i]['title']; ?></td>
+                    <td><?php echo ($results->data[$i]['status'] == 0) ? "Disabled" : "Enabled"; ?></td>
+                    <td class="action"> 
+                        <a href="/controllers/C_Post.php?id=<?php echo $results->data[$i]['id']; ?>&action=detail">Show</a><span> | </span> 
+                        <a href="/controllers/C_Post.php?id=<?php echo $results->data[$i]['id']; ?>&action=edit">Edit</a><span> | </span>
+                        <a href="/controllers/C_Post.php?action=delete&id=<?php echo $results->data[$i]['id']; ?>">Delete</a>
+                    </td>
+            </tr>
+        <?php endfor; ?>
+    </table>
+    </main>
+    <footer>
+        <div id="choice_limit">
+            <label for="limit">Page: </label>
+            <select id="limit" name="limit_value" onchange="updateLimit(this.value)">
+                <option value="5"<?php if ($limit == '5' ) echo ' selected="selected"'; ?>>5</option>
+                <option value="10"<?php if ($limit == '10' ) echo ' selected="selected"'; ?>>10</option>
+                <option value="50"<?php if ($limit == '50' ) echo ' selected="selected"'; ?>>50</option>
+                <option value="all"<?php if ($limit == 'all' ) echo ' selected="selected"'; ?>>all</option>
+            </select>
+        </div>
+        <?php
+            echo $paginate->create_links($links, "pagination");
+        ?>
+    </footer>
+</body>
+<script>
+function updateLimit(limitValue)
+{
+    var url = "/?limit=" + limitValue + "&page=1";
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+            console.log(xmlHttp.responseText);
+            document.open();
+            document.write(xmlHttp.responseText);
+            document.close();
+        }
+    }
+    xmlHttp.open("GET", url, true); // true for asynchronous 
+    xmlHttp.send(null);
+}
+
+</script>
+</html>
