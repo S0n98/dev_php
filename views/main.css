@@ -14,7 +14,7 @@ footer {
     margin: auto;
 }
 
-table, td, th {
+table.view_table, .view_table td, .view_table th {
     border: 1px solid black;
     text-align: center;
 }
@@ -22,6 +22,10 @@ table, td, th {
 table {
     border-collapse: collapse;
     width: 100%;
+}
+
+.submit_table tr:nth-child(odd) td{
+    background-color: #00ffff;
 }
 
 .title {
@@ -77,7 +81,7 @@ li > a.active {
 
 .button_back {
     float: right;
-    border: 1px solid #000000;
+    border: 0.5px solid gray;
     font: bold 13px Arial;
     text-decoration: none;
     background-color: #ffffff;
@@ -106,6 +110,21 @@ li > a.active {
     float:left;
 }
 
-.float_l {
+.float_r {
     float:right;
+    margin: 3px;
+}
+
+.float_l {
+    float: left;
+}
+
+.bold {
+    font-weight: bold;
+    min-width: 100px;
+}
+
+.image_edit {
+    display: block;
+    width: 150px;
 }

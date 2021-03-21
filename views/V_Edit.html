@@ -7,18 +7,61 @@
 </head>
 <body>
 <main>
-    <h1>Edit</h1>
     <div class="two_button">
-        <a class="button_back float_l">Back</a>
-        <a class="button float_l">Show</a>
+        <a class="button_back float_r" href="/">Back</a>
+        <a class="button float_r" href="../controllers/C_Post.php?action=detail&id=<?php echo $p->id ?>">Show</a>
     </div>
-    <table>
-    <tr>
-        <td>Title</td>
-        <td><input type="text"></td>
-    </tr>
-    </table>
+    <h1>Edit</h1>
+    <form id="subForm" action="../controllers/C_Post.php" method="POST" enctype="multipart/form-data">
+        <input type="hidden" id="id_post" name="id" value="<?php echo $p->id ?>">
+        <input type="hidden" id="action" name="action" value="sub_edit">
+        <table class="submit_table">
+            <tr>
+                <td class="bold">Title</td>
+                <td><input name="title" type="text" value="<?php echo $p->title; ?>"></td>
+            </tr>
+            <tr>
+                <td class="bold">Desciption</td>
+                <td><textarea name="desc" id="desc" cols="40" rows="10" d><?php echo $p->description; ?></textarea></td>
+            </tr>
+            <tr>
+                <td class="bold ">Image</td>
+                <td>
+                    <input type="file" name="image_edit" id="uploadImage" onchange="readURL(this);" />
+                    <img class="image_edit" src=".<?php echo $p->image ?>" alt="post's image" />
+                </td>
+            </tr>
+            <tr>
+                <td class="bold">Status</td>
+                <td>
+                    <select name="status" id="status">
+                        <option value="1" <?php if ($p->status == 'Enabled') echo ' selected="selected"'; ?>>Enabled</option>
+                        <option value="0" <?php if ($p->status == 'Disabled') echo ' selected="selected"'; ?>>Disabled</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="button" onclick="subForm()" value="Submit"></td>
+            </tr>
+        </table>
+    </form>
 </main>
 </body>
+<script>
+    function subForm() {
+        document.getElementById("subForm").submit();
+    }
+
+    function readURL(e) {
+        if (e.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e){
+            document.querySelector('.image_edit').setAttribute('src', e.target.result);
+            }
+            reader.readAsDataURL(e.files[0]);
+        }
+    }
+</script>
 
 </html>

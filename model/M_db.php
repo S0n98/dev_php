@@ -109,4 +109,26 @@
             $delete->execute();
             M_db::close_con();
         }
+
+        public static function update_post($id, $title, $description, $status, $target) {
+            $update = M_db::$conn->prepare(
+                'UPDATE post SET title = "'.$title.'", description = "'.$description.'", status = '.$status.', image = "'.$target.'" WHERE id='.$id);
+            $update->execute();
+            M_db::close_con();
+        }
+
+        public static function add_post($title, $description, $status, $target) {
+            $add = M_db::$conn->prepare(
+                'INSERT INTO post (title, description, status, image) VALUES("'.$title.'", "'.$description.'", '.$status.', "'.$target.'")');
+            $add->execute();
+            M_db::close_con();
+        }
+
+        public static function get_last_id() {
+            $last_id = M_db::$conn->prepare('SHOW INDEXES FROM post');
+            $last_id->execute();
+            $row = $last_id->fetch(PDO::FETCH_ASSOC);
+            return $row["Cardinality"];
+        }
+
        }
