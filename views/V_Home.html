@@ -9,7 +9,7 @@
     <main>
     <div class="container">
         <h1>Manage</h1>
-        <a class="button" href="/controllers/C_Post.php?action=view_add_post">New</a>
+        <a class="button" href="/view_add_post">New</a>
     </div>
     <table class="view_table">
         <tr>
@@ -27,9 +27,9 @@
                     <td class="title"><?php echo $results->data[$i]['title']; ?></td>
                     <td><?php echo ($results->data[$i]['status'] == 0) ? "Disabled" : "Enabled"; ?></td>
                     <td class="action"> 
-                        <a href="/controllers/C_Post.php?id=<?php echo $results->data[$i]['id']; ?>&action=detail">Show</a><span> | </span> 
-                        <a href="/controllers/C_Post.php?id=<?php echo $results->data[$i]['id']; ?>&action=edit">Edit</a><span> | </span>
-                        <a href="/controllers/C_Post.php?action=delete&id=<?php echo $results->data[$i]['id']; ?>">Delete</a>
+                        <a href="/detail/<?php echo $results->data[$i]['id']; ?>">Show</a><span> | </span> 
+                        <a href="/edit/<?php echo $results->data[$i]['id']; ?>">Edit</a><span> | </span>
+                        <a href="/delete/<?php echo $results->data[$i]['id']; ?>">Delete</a>
                     </td>
             </tr>
         <?php endfor; ?>
